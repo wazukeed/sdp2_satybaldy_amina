@@ -3,30 +3,35 @@ package org.example;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose weapon:");
+        System.out.println("Choose character family:");
         System.out.println("1 - Fire");
         System.out.println("2 - Ice");
         System.out.println("3 - Shadow");
 
         int choice = scanner.nextInt();
 
-        WeaponCreator creator;
+        GameFactory factory;
 
         if (choice == 1) {
-            creator = new FireWeaponCreator();
+            factory = new FireFactory();
         } else if (choice == 2) {
-            creator = new IceWeaponCreator();
+            factory = new IceFactory();
         } else if (choice == 3) {
-            creator = new ShadowWeaponCreator();
+            factory = new ShadowFactory();
         } else {
             System.out.println("Wrong choice");
             return;
         }
 
-        creator.fight();
+        GameCharacter character = new GameCharacter(factory);
+
+        character.fight();
+        character.specialAttack();
+        character.surviveBattle();
     }
 }
