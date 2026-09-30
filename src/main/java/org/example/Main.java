@@ -12,6 +12,7 @@ public class Main {
         System.out.println("1 - Fire");
         System.out.println("2 - Ice");
         System.out.println("3 - Shadow");
+        System.out.println("4 - Lightning");
 
         int choice = scanner.nextInt();
 
@@ -23,6 +24,8 @@ public class Main {
             factory = new IceFactory();
         } else if (choice == 3) {
             factory = new ShadowFactory();
+        } else if (choice == 4) {
+            factory = new LightningFactory();
         } else {
             System.out.println("Wrong choice");
             return;
