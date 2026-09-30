@@ -154,4 +154,12 @@ public class FactoryTest {
         assertDoesNotThrow(character::specialAttack);
         assertDoesNotThrow(character::surviveBattle);
     }
+
+    @Test
+    void characterRejectsNullFactory() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new GameCharacter(null)
+        );
+    }
 }
