@@ -7,41 +7,26 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose character family:");
+        System.out.println("Choose weapon:");
         System.out.println("1 - Fire");
         System.out.println("2 - Ice");
         System.out.println("3 - Shadow");
 
         int choice = scanner.nextInt();
 
-        Weapon weapon;
-        Armor armor;
-        Ability ability;
+        WeaponCreator creator;
 
         if (choice == 1) {
-            weapon = new Weapon("Fire");
-            armor = new Armor("Fire");
-            ability = new Ability("Fire");
-
+            creator = new FireWeaponCreator();
         } else if (choice == 2) {
-            weapon = new Weapon("Ice");
-            armor = new Armor("Ice");
-            ability = new Ability("Ice");
-
+            creator = new IceWeaponCreator();
         } else if (choice == 3) {
-            weapon = new Weapon("Shadow");
-            armor = new Armor("Shadow");
-            ability = new Ability("Shadow");
-
+            creator = new ShadowWeaponCreator();
         } else {
             System.out.println("Wrong choice");
             return;
         }
 
-        System.out.println("\nCharacter is ready!");
-
-        weapon.attack();
-        armor.defend();
-        ability.use();
+        creator.fight();
     }
 }
