@@ -1,0 +1,128 @@
+@startuml
+title Game Character System - Factory Method & Abstract Factory
+
+interface Weapon
+class FireWeapon
+class IceWeapon
+class ShadowWeapon
+class LightningWeapon
+
+Weapon <|.. FireWeapon
+Weapon <|.. IceWeapon
+Weapon <|.. ShadowWeapon
+Weapon <|.. LightningWeapon
+
+
+abstract class WeaponCreator {
+    +createWeapon(): Weapon
+    +fight(): void
+}
+
+class FireWeaponCreator
+class IceWeaponCreator
+class ShadowWeaponCreator
+
+WeaponCreator <|-- FireWeaponCreator
+WeaponCreator <|-- IceWeaponCreator
+WeaponCreator <|-- ShadowWeaponCreator
+
+FireWeaponCreator ..> FireWeapon : creates
+IceWeaponCreator ..> IceWeapon : creates
+ShadowWeaponCreator ..> ShadowWeapon : creates
+
+
+interface Armor
+class FireArmor
+class IceArmor
+class ShadowArmor
+class LightningArmor
+
+Armor <|.. FireArmor
+Armor <|.. IceArmor
+Armor <|.. ShadowArmor
+Armor <|.. LightningArmor
+
+
+interface Ability
+class FireAbility
+class IceAbility
+class ShadowAbility
+class LightningAbility
+
+Ability <|.. FireAbility
+Ability <|.. IceAbility
+Ability <|.. ShadowAbility
+Ability <|.. LightningAbility
+
+
+interface GameFactory {
+    +createWeapon(): Weapon
+    +createArmor(): Armor
+    +createAbility(): Ability
+}
+
+class FireFactory
+class IceFactory
+class ShadowFactory
+class LightningFactory
+
+GameFactory <|.. FireFactory
+GameFactory <|.. IceFactory
+GameFactory <|.. ShadowFactory
+GameFactory <|.. LightningFactory
+
+FireFactory ..> FireWeapon : creates
+FireFactory ..> FireArmor : creates
+FireFactory ..> FireAbility : creates
+
+IceFactory ..> IceWeapon : creates
+IceFactory ..> IceArmor : creates
+IceFactory ..> IceAbility : creates
+
+ShadowFactory ..> ShadowWeapon : creates
+ShadowFactory ..> ShadowArmor : creates
+ShadowFactory ..> ShadowAbility : creates
+
+LightningFactory ..> LightningWeapon : creates
+LightningFactory ..> LightningArmor : creates
+LightningFactory ..> LightningAbility : creates
+
+
+class GameCharacter {
+    -weapon: Weapon
+    -armor: Armor
+    -ability: Ability
+    +GameCharacter(factory: GameFactory)
+    +fight(): void
+    +specialAttack(): void
+    +surviveBattle(): void
+}
+
+GameCharacter --> Weapon
+GameCharacter --> Armor
+GameCharacter --> Ability
+GameCharacter ..> GameFactory : uses
+
+
+class FactorySelector {
+    +selectFactory(choice: int): GameFactory
+}
+
+FactorySelector ..> GameFactory : returns
+
+
+note right of WeaponCreator
+FACTORY METHOD
+WeaponCreator defines createWeapon()
+Concrete Creators decide
+which Weapon is created.
+end note
+
+
+note right of GameFactory
+ABSTRACT FACTORY
+Creates a compatible family:
+Weapon + Armor + Ability
+end note
+
+@enduml
