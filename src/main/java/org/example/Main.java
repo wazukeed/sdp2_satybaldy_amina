@@ -16,25 +16,17 @@ public class Main {
 
         int choice = scanner.nextInt();
 
-        GameFactory factory;
+        try {
+            GameFactory factory = FactorySelector.selectFactory(choice);
 
-        if (choice == 1) {
-            factory = new FireFactory();
-        } else if (choice == 2) {
-            factory = new IceFactory();
-        } else if (choice == 3) {
-            factory = new ShadowFactory();
-        } else if (choice == 4) {
-            factory = new LightningFactory();
-        } else {
+            GameCharacter character = new GameCharacter(factory);
+
+            character.fight();
+            character.specialAttack();
+            character.surviveBattle();
+
+        } catch (IllegalArgumentException e) {
             System.out.println("Wrong choice");
-            return;
         }
-
-        GameCharacter character = new GameCharacter(factory);
-
-        character.fight();
-        character.specialAttack();
-        character.surviveBattle();
     }
 }
